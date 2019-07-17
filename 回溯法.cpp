@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct goods 
+struct goods
 {
 	int n;						//物品数量 
 	int m;						//物品属性数量
-	float best;					//最优值
+	float best;					//数据给出的最优值，可以用来检验算法是否正确 
 	double value[50];			//物品价值
 	int weight[50][50];			//物品属性值(重量、体积等限制条件)
 	int limit[50];				//背包各属性的约束上限
@@ -85,17 +85,31 @@ void BackTrack(int t)
 int intput()
 {
 	int j, k;
+	
+	printf("物品数量:"); 
 	scanf("%d", &Point.n);
+	printf("物品属性数量:"); 
 	scanf("%d", &Point.m);
-	//scanf("%f", &Point.best);//读取变量数（n），约束数（m），最优
-	for (j = 0; j < Point.n; j++) {
-		scanf("%lf", &Point.value[j]);//读取物品价值数组
+	printf("测试数据最优值:"); 
+	scanf("%f", &Point.best);
+	
+	printf("物品价值:");
+	for (j = 0; j < Point.n; j++)
+	{
+		scanf("%lf", &Point.value[j]);			//读取物品价值数组
 	}
+	
+	
 	for (j = 0; j < Point.m; j++)
+	{
+		printf("第%d个属性:",j+1);
 		for (k = 0; k < Point.n; k++)
-			scanf("%d", &Point.weight[j][k]);//读取物品质量的二维数组
+			scanf("%d", &Point.weight[j][k]);	//读取物品质量的二维数组
+	}
+	 
+		
 	for (j = 0; j < Point.m; j++)
-		scanf("%d", &Point.limit[j]);//读取背包上限数组
+		scanf("%d", &Point.limit[j]);			//读取背包上限数组
 		
 		
 	//初始化	
@@ -114,7 +128,7 @@ int intput()
 void output()
 {
 	printf("最大价值为：%0.1f\n", maxValue);
-	printf("最优解决方案为：\n选取第");
+	printf("最优解决方案为：选取第");
 	for (int i = 0; i < Point.n; i++)
 	{
 		if (flag[i] == 1)
@@ -134,7 +148,3 @@ int main()
 	return 0;
 }
 
-/*
-时间复杂度分析 
- 
-*/ 
