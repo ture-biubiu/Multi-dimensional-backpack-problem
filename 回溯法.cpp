@@ -3,47 +3,48 @@
 
 struct goods
 {
-	int n;						//ç‰©å“æ•°é‡ 
-	int m;						//ç‰©å“å±æ€§æ•°é‡
-	float best;					//æ•°æ®ç»™å‡ºçš„æœ€ä¼˜å€¼ï¼Œå¯ä»¥ç”¨æ¥æ£€éªŒç®—æ³•æ˜¯å¦æ­£ç¡® 
-	double value[50];			//ç‰©å“ä»·å€¼
-	int weight[50][50];			//ç‰©å“å±æ€§å€¼(é‡é‡ã€ä½“ç§¯ç­‰é™åˆ¶æ¡ä»¶)
-	int limit[50];				//èƒŒåŒ…å„å±æ€§çš„çº¦æŸä¸Šé™
+	int n;						//ÎïÆ·ÊıÁ¿ 
+	int m;						//ÎïÆ·ÊôĞÔÊıÁ¿
+	float best;					//Êı¾İÔ¤ÏÈ¸ø³öµÄ×îÓÅÖµ£¬¿ÉÒÔÓÃÀ´¼ìÑéËã·¨ÊÇ·ñÕıÈ·
+	double value[50];			//ÎïÆ·¼ÛÖµ
+	int weight[50][50];			//ÎïÆ·ÊôĞÔÖµ(ÖØÁ¿¡¢Ìå»ıµÈÏŞÖÆÌõ¼ş)
+	int limit[50];				//±³°ü¸÷ÊôĞÔµÄÔ¼ÊøÉÏÏŞ
 }Point;
              
-int x[50];						//ç‰©å“çš„é€‰å–çŠ¶æ€
-int flag[50];                   //æœ€ä¼˜çš„é€‰å–çŠ¶æ€
-double maxValue = 0;            //æœ€å¤§ä»·å€¼
-double tempValue = 0;           //å½“å‰æœ€å¤§ä»·å€¼
-double tempWeight[50];			//å½“å‰ç‰©å“çº¦æŸå’Œ
 
-//å¸ƒå°”å‹å‡½æ•°ï¼Œåˆ¤æ–­å½“å‰èƒŒåŒ…çº¦æŸåŠ ä¸Šæ–°ç‰©å“çš„çº¦æŸæ˜¯å¦ä¼šè¶…å‡ºèƒŒåŒ…çº¦æŸä¸Šé™
+int x[50];						//µ±Ç°µÄÑ¡È¡×´Ì¬
+int flag[50];                   //×îÓÅµÄÑ¡È¡×´Ì¬
+double maxValue = 0;            //×î´ó¼ÛÖµ
+double tempValue = 0;           //µ±Ç°×î´ó¼ÛÖµ
+double tempWeight[50];			//µ±Ç°ÎïÆ·Ô¼ÊøºÍ
+
+//²¼¶ûĞÍº¯Êı£¬ÅĞ¶Ïµ±Ç°±³°üÔ¼Êø¼ÓÉÏĞÂÎïÆ·µÄÔ¼ÊøÊÇ·ñ»á³¬³ö±³°üÔ¼ÊøÉÏÏŞ
 bool Bound(int t){
 	int i;
-	for (i = 0; i < Point.m; i++)//éå†å½“å‰ç‰©å“çš„æ‰€æœ‰å±æ€§
+	for (i = 0; i < Point.m; i++)//±éÀúµ±Ç°ÎïÆ·µÄËùÓĞÊôĞÔ
 	{
 		if (tempWeight[i] + Point.weight[i][t] <= Point.limit[i])
 			continue;
 		else break;
 	}
-	if (i == Point.m)  //éƒ½ç¬¦åˆæ‰è¿”å›çœŸå€¼
+	if (i == Point.m)  //¶¼·ûºÏ²Å·µ»ØÕæÖµ
 		return true;
 	else
 		return false;
 }
 
-//å›æº¯å‡½æ•°
+//»ØËİº¯Êı
 void BackTrack(int t)
 {
-		//å·²ç»æœç´¢åˆ°æ ¹èŠ‚ç‚¹
+		//ÒÑ¾­ËÑË÷µ½¸ù½Úµã
 		
-	if (t >= Point.n) //å¦‚æœåˆ°å¶å­èŠ‚ç‚¹
+	if (t >= Point.n) //Èç¹ûµ½Ò¶×Ó½Úµã
 	{   
 
-		if (tempValue >= maxValue)				//å¦‚æœå½“å‰æ–¹æ¡ˆçš„æ€»ä»·å€¼å¤§äºä¸Šä¸€æ¬¡çš„æœ€å¤§ä»·å€¼
+		if (tempValue >= maxValue)				//Èç¹ûµ±Ç°·½°¸µÄ×Ü¼ÛÖµ´óÓÚÉÏÒ»´ÎµÄ×î´ó¼ÛÖµ
 		{   
-			maxValue = tempValue;    			//å°†æœ€å¤§ä»·å€¼äº¤æ¢
-			for (int i = 0; i < Point.n; i++) 	//ä¿å­˜æœ€ä¼˜é€‰å–æ–¹æ¡ˆçš„è·¯å¾„
+			maxValue = tempValue;    			//½«×î´ó¼ÛÖµ½»»»
+			for (int i = 0; i < Point.n; i++) 	//±£´æ×îÓÅÑ¡È¡·½°¸µÄÂ·¾¶
 			{    
 				flag[i] = x[i];
 			}
@@ -51,66 +52,62 @@ void BackTrack(int t)
 		return;
 	}
 	
-	//æœç´¢å·¦å­æ ‘
-	if ( Bound(t) ) 			//å¦‚æœå½“å‰çº¦æŸ+ä¸‹ä¸€ä¸ªç‰©å“çº¦æŸ<=èƒŒåŒ…æœ€å¤§çº¦æŸé™åˆ¶      ä»·å€¼ç±»ä¼¼
+	//ËÑË÷×ó×ÓÊ÷
+	if ( Bound(t) ) 			//Èç¹ûµ±Ç°Ô¼Êø+ÏÂÒ»¸öÎïÆ·Ô¼Êø<=±³°ü×î´óÔ¼ÊøÏŞÖÆ      ¼ÛÖµÀàËÆ
 	{  
 		for (int i = 0; i < Point.m; i++)
 		{
-			tempWeight[i] += Point.weight[i][t];       //å½“å‰çº¦æŸå’ŒåŠ ä¸Šä¸‹ä¸€ä¸ªçº¦æŸ
+			tempWeight[i] += Point.weight[i][t];       //µ±Ç°Ô¼ÊøºÍ¼ÓÉÏÏÂÒ»¸öÔ¼Êø
 		}
-		tempValue += Point.value[t];
-		x[t] = 1;                    //1è¡¨ç¤ºæ”¾å…¥èƒŒåŒ… 
+		tempValue += Point.value[t];   				//¸üĞÂ×î´ó¼ÛÖµ 
+		x[t] = 1;                    //1±íÊ¾·ÅÈë±³°ü 
 		
 		
-		BackTrack(t + 1);          // å›æº¯
-		for (int i = 0; i < Point.m; i++) 				//ä¸é€‰æ‹©åˆ™å›æº¯æ¢å¤åŸæ¥çš„çº¦æŸ
+		BackTrack(t + 1);          // »ØËİ
+		for (int i = 0; i < Point.m; i++) 				//²»Ñ¡ÔñÔò»ØËİ»Ö¸´Ô­À´µÄÔ¼Êø
 		{
-			tempWeight[i] -= Point.weight[i][t];        //å½“å‰çº¦æŸå’Œå‡å»ä¸Šä¸€ä¸ªçš„çº¦æŸ
+			tempWeight[i] -= Point.weight[i][t];        //µ±Ç°Ô¼ÊøºÍ¼õÈ¥ÉÏÒ»¸öµÄÔ¼Êø
 		}
-		tempValue -= Point.value[t];					//å›æº¯æ¢å¤åŸæ¥çš„ä»·å€¼
-		x[t] = 0;										//0è¡¨ç¤ºä¸æ”¾å…¥èƒŒåŒ… 
+		tempValue -= Point.value[t];					//»ØËİ»Ö¸´Ô­À´µÄ¼ÛÖµ
+		x[t] = 0;										//0±íÊ¾²»·ÅÈë±³°ü 
 
 	}
 	
-	//ä¸è£…å…¥è¿™ä¸ªç‰©å“ï¼Œç›´æ¥æœç´¢å³è¾¹çš„èŠ‚ç‚¹
+	//²»×°ÈëÕâ¸öÎïÆ·£¬Ö±½ÓËÑË÷ÓÒ±ßµÄ½Úµã
 
-	//éå†å³å­æ ‘
+	//±éÀúÓÒ×ÓÊ÷
 		BackTrack(t + 1);
 
 }
 
-//è¾“å…¥å‡½æ•° 
+//ÊäÈëº¯Êı 
 int intput()
 {
 	int j, k;
 	
-	printf("ç‰©å“æ•°é‡:"); 
-	scanf("%d", &Point.n);
-	printf("ç‰©å“å±æ€§æ•°é‡:"); 
-	scanf("%d", &Point.m);
-	printf("æµ‹è¯•æ•°æ®æœ€ä¼˜å€¼:"); 
-	scanf("%f", &Point.best);
+	printf("ÇëÊäÈëÎïÆ·ÊıÁ¿¡¢ÊôĞÔÊıÁ¿¡¢×îÓÅÖµ£º"); 
+	scanf("%d%d%f", &Point.n,&Point.m,&Point.best);
 	
-	printf("ç‰©å“ä»·å€¼:");
+	printf("ÎïÆ·¼ÛÖµ:");
 	for (j = 0; j < Point.n; j++)
 	{
-		scanf("%lf", &Point.value[j]);			//è¯»å–ç‰©å“ä»·å€¼æ•°ç»„
+		scanf("%lf", &Point.value[j]);			//¶ÁÈ¡ÎïÆ·¼ÛÖµÊı×é
 	}
 	
 	
 	for (j = 0; j < Point.m; j++)
 	{
-		printf("ç¬¬%dä¸ªå±æ€§:",j+1);
+		printf("µÚ%d¸öÊôĞÔ:",j+1);
 		for (k = 0; k < Point.n; k++)
-			scanf("%d", &Point.weight[j][k]);	//è¯»å–ç‰©å“è´¨é‡çš„äºŒç»´æ•°ç»„
+			scanf("%d", &Point.weight[j][k]);	//¶ÁÈ¡ÎïÆ·ÖÊÁ¿µÄ¶şÎ¬Êı×é
 	}
 	 
-		
+	printf("ÎïÆ·ÊôĞÔÔ¼Êø:");	
 	for (j = 0; j < Point.m; j++)
-		scanf("%d", &Point.limit[j]);			//è¯»å–èƒŒåŒ…ä¸Šé™æ•°ç»„
+		scanf("%d", &Point.limit[j]);			//¶ÁÈ¡±³°üÉÏÏŞÊı×é
 		
 		
-	//åˆå§‹åŒ–	
+	//³õÊ¼»¯	
 	maxValue = 0;					
 	tempValue = 0;
 	for (int i = 0; i < Point.m; i++)
@@ -122,17 +119,17 @@ int intput()
 }
 
  
-//è¾“å‡ºå‡½æ•° 
+//Êä³öº¯Êı 
 void output()
 {
-	printf("æœ€å¤§ä»·å€¼ä¸ºï¼š%0.1f\n", maxValue);
-	printf("æœ€ä¼˜è§£å†³æ–¹æ¡ˆä¸ºï¼šé€‰å–ç¬¬");
+	printf("×î´ó¼ÛÖµÎª£º%0.1f\n", maxValue);
+	printf("×îÓÅ½â¾ö·½°¸Îª£ºÑ¡È¡µÚ");
 	for (int i = 0; i < Point.n; i++)
 	{
 		if (flag[i] == 1)
 			printf("%d ", i + 1);
 	}
-	printf("ä»¶ç‰©å“\n");
+	printf("¼şÎïÆ·\n");
 
 	printf("\n");
 
